@@ -4,6 +4,7 @@ import Axios from "../../../services/Axios";
 import { Link } from "react-router-dom";
 
 export function AdminDepto() {
+  
   const [depto, setDepto] = useState([]);
 
   const consultarDepto = async () => {
@@ -11,6 +12,15 @@ export function AdminDepto() {
     console.log(consultar.data)
     setDepto(consultar.data);
   };
+
+  const GuardarDeptos=async()=>{
+    //const formulario=document.getElementById("personales");
+    //const formData=new FormData(formulario);
+    await Axios.post('/depto',depto).then(()=>{
+      console.log("Registros guardados")
+    })
+   console.log(depto);
+  }
 
   const deleteDepto = async (id) => {
     if (window.confirm("¿Esta seguro de eliminar a la el departamento?")) {

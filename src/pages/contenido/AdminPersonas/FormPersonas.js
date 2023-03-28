@@ -1,37 +1,66 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "../../../services/Axios";
+import {useNavigate, useParams} from "react-router-dom";
+
+
+//usar la navegacion por defecto del reat_router-dom
+//const navigate =new useNavigate;
+// usar useNAvigate como parametro en react-router-dom
 
 export function FormPersonas() {
 
   const variables={
-    
+    _id:"",
     id_depto:"",
-    nombre:"",
+    nombre_depto:"",
     encargado:"",
     edificio:"",
     telefono:""
   }
 
-  const [personas, setPersonas] = useState(variables);
-
+  const [deptos, setDeptos] = useState(variables);
+//variable para obtener los datos del parametro especificado en registro
+  const params = useParams();
+    const navigate=useNavigate()
   const onChange=(e)=>{
     const {name,value}=e.target;
-    setPersonas({...personas,[name]:value})
+    setDeptos({...deptos,[name]:value})
   }
 
   const GuardarDatos=async()=>{
     //const formulario=document.getElementById("personales");
     //const formData=new FormData(formulario);
-    await Axios.post('/persona',personas).then(()=>{
+    await Axios.post('/depto',deptos).then(()=>{
       console.log("Registros guardados")
     })
-   console.log(personas);
+   console.log(deptos);
   }
+
+  const obtenerDepto=async(id)=>{
+    const depto = await Axios.get("/deptos/" + id);
+    setDeptos (depto.data);
+    console.log(depto);
+  }
+
+  const updateDepto = async()=>{
+    await Axios.patch(`/depto/${params.id}`, deptos).then(
+      ()=>{
+        console.log("Los datos han sido actualizados correctamente")
+      }
+    )
+    navigate("/depto");
+  }
+  
 
   const Enviar=(e)=>{
     e.preventDefault();
     GuardarDatos();
   }
+
+  useEffect(()=>{
+    obtenerDepto(params.id);
+  },[params.id])
+
   return (
     <div className="container-fluid p-3">
       <div class="card">
@@ -49,23 +78,23 @@ export function FormPersonas() {
                   class="form-control"
                   id="id_depto"
                   placeholder="Ingrese ID del departamento"
-                  value={personas.curp}
+                  value={deptos.id_depto}
                   onChange={onChange}
                 />
               </div>
             </div>
             <div class="mb-3 row">
-              <label for="nombre" class="col-sm-2 col-form-label">
+              <label for="nombre_depto" class="col-sm-2 col-form-label">
                 Nombre
               </label>
               <div class="col-sm-10">
                 <input
                   type="text"
                   class="form-control"
-                  name="nombre"
-                  id="nombre"
+                  name="nombre_depto"
+                  id="nombre_depto"
                   placeholder="Nombre del departamento"
-                  value={personas.nombre}
+                  value={deptos.nombre_depto}
                   onChange={onChange}
                 />
               </div>
@@ -81,7 +110,7 @@ export function FormPersonas() {
                   name="encargado"
                   id="encargado"
                   placeholder="Nombre del encargado"
-                  value={personas.apellidos}
+                  value={deptos.encargado}
                   onChange={onChange}
                 />
               </div>
@@ -97,7 +126,7 @@ export function FormPersonas() {
                   name="edificio"
                   id="edificio"
                   placeholder="A, B, C, ó D"
-                  value={personas.sexo}
+                  value={deptos.edificio}
                   onChange={onChange}
                 />
               </div>
@@ -113,7 +142,7 @@ export function FormPersonas() {
                   name="telefono"
                   id="telefono"
                   placeholder="Ingrese numero de telefono"
-                  value={personas.telefono}
+                  value={deptos.telefono}
                   onChange={onChange}
                 />
               </div>
@@ -121,7 +150,7 @@ export function FormPersonas() {
 
             <div class="col-12">
               <button class="btn btn-primary" type="submit">
-                Guardar
+                {deptos._id==="" ? "Guardar":"Actualizar"}
               </button>
             </div>
           </form>

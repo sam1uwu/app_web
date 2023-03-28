@@ -1,11 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import Axios from "../../services/Axios";
 
 
 export function Home() {
+
+  const [datos, setDatos] = useState([]);
+
+  const consultar=async()=>{
+    const consultaDatos=await Axios.get("/deptos");
+    setDatos(consultaDatos.data)
+  }
+
+  useEffect(() => {
+    consultar()
+  }, [])
+  
   
   return (
     <>
-
     <p>
       <div class="container text-center">
         <div className="row">
@@ -24,9 +37,10 @@ export function Home() {
               <h2>Edificio D</h2>
             </a>
           </div>
-        </div>
+        </div> 
       </div>
     </p>
+
 
     <div class="collapse" id="collapseExample1">
         <div class="card card-body">
@@ -39,21 +53,25 @@ export function Home() {
                 </button>
               </h2>
               <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">info del departamento</div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="flush-headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                  DEPARTAMENTO #2
-                </button>
-              </h2>
-              <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">info del departamento</div>
+                <div class="accordion-body"> 
+                {datos.map((dato)=>{
+              return(
+                <div>
+                {dato.nombre}
+                </div>
+              )
+})}
+                </div>
               </div>
             </div>
           </div>
         </div>
+    </div>
+
+    <div className="row">
+      <div className="col-md-12">
+        Menus
+      </div>
     </div>
 
     
