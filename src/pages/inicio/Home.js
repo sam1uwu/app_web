@@ -24,6 +24,7 @@ export function Home() {
     consultar()
   }, [])
   
+//botones que clasifican los edificios.......
 
   return (
     <>
@@ -44,10 +45,10 @@ export function Home() {
             <a class="btn btn-dark" data-bs-toggle="collapse" href="#collapseExample4" role="tab" aria-expanded="false" aria-controls="collapseExample4">
               <h2>Edificio D</h2>
             </a>
-            <a class="btn btn-dark" data-bs-toggle="collapse" href="#collapseExample4" role="tab" aria-expanded="false" aria-controls="collapseExample4">
+            <a class="btn btn-dark" data-bs-toggle="collapse" href="#collapseExample5" role="tab" aria-expanded="false" aria-controls="collapseExample5">
               <h2>Biblioteca</h2>
             </a>
-            <a class="btn btn-dark" data-bs-toggle="collapse" href="#collapseExample4" role="tab" aria-expanded="false" aria-controls="collapseExample4">
+            <a class="btn btn-dark" data-bs-toggle="collapse" href="#collapseExample6" role="tab" aria-expanded="false" aria-controls="collapseExample6">
               <h2>Laboratorio</h2>
             </a>
           </div>
@@ -80,20 +81,20 @@ export function Home() {
                 <tr>
                     <th scope="row">1</th>
                     <td>{dato.ID_depto}</td>
-                    <td>{dato.name_depto}</td>
+                    <td>{dato.name_admi}</td>
                     <td>{dato.telefono_depto}</td>
                     <td>{dato.email_depto}</td>
                     <td>
                       <button type="button" 
                       class="btn btn-info"
-                      onClick={()=>navigate(`/formpersona/${deptos._id}`)}
+                      onClick={()=>navigate(`/formpersona/${depto._id}`)}
                       >
                         Editar
                       </button>
                     </td>
                     <td>
                       <button type="button" class="btn btn-danger"
-                      onClick={()=>deleteDepto(deptos._id)}
+                      onClick={()=>deleteDepto(depto._id)}
                       >
                         Delete
                       </button>
@@ -107,9 +108,6 @@ export function Home() {
           </div>
         </div>
     </div>
-
-
-
     </>
 
   );

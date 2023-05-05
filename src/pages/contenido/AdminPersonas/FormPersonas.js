@@ -198,33 +198,28 @@ export function FormPersonas() {
                   />
                 </div>
               </div>
+              
               <div class="mb-3 row">
                 <label for="sexo" class="col-sm-2 col-form-label">
                   Sexo
                 </label>
                   
-                <div class="form-check">
-                <input 
-                  class="form-check-input" 
-                  type="radio" 
-                  name="sexo" 
-                  id="sexo"/>
-                  <label class="col-sm-2 col-form-check-label" for="flexRadioDefault1">
-                    Mujer 
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"/>
+                  <label 
+                  class="form-check-label" for="inlineRadio1">
+                    Mujer
                   </label>
                 </div>
-                <div class="form-check">
-                  <input 
-                  class="form-check-input" 
-                  type="radio" 
-                  name="sexo" 
-                  id="sexo" checked/>
-                  <label class="col-sm-2 col-form-check-label" for="flexRadioDefault2">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
+                  <label 
+                  class="form-check-label" for="inlineRadio2">
                     Hombre
                   </label>
                 </div>
-              </div>
-
+                </div>
+              
               <div class="mb-3 row">
                 <label for="telefono_admi" class="col-sm-2 col-form-label">
                   Teléfono
@@ -251,7 +246,7 @@ export function FormPersonas() {
                     class="form-control"
                     name="email_admi"
                     id="email_admi"
-                    placeholder="correo del administrador"
+                    placeholder="Correo del administrador"
                     value={deptos.email_admi}
                     onChange={onChange}
                   />
